@@ -38,9 +38,7 @@ export class CreateCenterComponent implements OnDestroy {
 
     if(this.isCreating()) return;
     
-    console.log(this.centerForm.value);
-    this.isCreating.set(true);          
-  
+    this.isCreating.set(true);            
     const values = this.centerForm.value;
     values.nom_centro = values.nom_centro.trim();
 

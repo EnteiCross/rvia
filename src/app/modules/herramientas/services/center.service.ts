@@ -18,7 +18,6 @@ export class CenterService {
   createCenter(info: Centro): Observable<Centro> {
     return this.http.post<Centro>(`${this.baseUrl}/centros`,info)
      .pipe(
-      tap((r) => { console.log(r); }),
       tap((c) => { 
         const title = 'Centro creado correctamente';
         const message = `El centro ${c.num_centro} - ${c.nom_centro} se ha creado exitosamente`;
@@ -31,7 +30,6 @@ export class CenterService {
   }
 
     private handleError(error: any, origin: OriginMethodCentro, extra?: string | number) {
-      console.log(error);
       const title = 'Upps, algo salió mal';
       const errorsMessages = {
         POSTCREATECENTRO: `Ha ocurrido un error al crear centro. ${ error?.error.message ? error.error.message : '' }`,
