@@ -6,6 +6,7 @@ import { ExecuteDocumentacionComponent } from "./components/execute-documentacio
 import { TestCaseComponent } from "./components/test-case/test-case.component"; 
 import { RateCodeComponent } from "./components/rate-code/rate-code.component";
 import { CreateCenterComponent } from "./components/create-center/create-center.component";
+import { CreateLeaderComponent } from "./components/create-leader/create-leader.component";
 
 export const herramientasRoutes: Routes = [
     {
@@ -35,6 +36,11 @@ export const herramientasRoutes: Routes = [
                 path: 'create-center',
                 component: CreateCenterComponent,
                 title: 'RVIA - Crear centro'
+            },
+            {
+                path: 'create-leader',
+                component: CreateLeaderComponent,
+                title: 'RVIA - Registrar encargado'
             },
             // { 
             //     path: 'rate-code',

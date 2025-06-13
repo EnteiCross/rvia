@@ -36,6 +36,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     { path: '/tools/recoveryPDF', name: 'Convertir a .csv', icon: PrimeIcons.FILE_EXCEL },
     { path: '/tools/execute-ia', name: 'Ejecutar IA', icon: PrimeIcons.MICROCHIP_AI },
     { path: '/tools/create-center', name: 'Centros', icon: PrimeIcons.BUILDING },
+    { path: '/tools/create-leader', name: 'Encargados', icon: PrimeIcons.USER_PLUS },
   ];
   menuSettings = [
     { path: '/users/settings/my-account', name: 'Ajustes', icon: PrimeIcons.COG },

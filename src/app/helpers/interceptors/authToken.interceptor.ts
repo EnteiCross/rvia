@@ -80,6 +80,10 @@ export const AuthInterceptor = (request: HttpRequest<unknown>, next: HttpHandler
             if(url.includes('/centros') && method === 'POST'){
                 return next(newReq);    
             }
+
+            if(url.includes('/leader') && method === 'POST'){
+                return next(newReq);    
+            }
         }
 
         return next(request);
