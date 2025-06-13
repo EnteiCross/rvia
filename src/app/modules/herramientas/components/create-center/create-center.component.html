@@ -1,0 +1,76 @@
+<main class="m-2">
+    <section class="flex flex-col md:flex-row md:items-center">
+        <div class="flex items-center justify-center">
+          <h1 class="txt-title-color text-5xl my-0">Registrar nuevo centro</h1>
+        </div>
+    </section>
+    <div class="mt-4 text-gray-400 text-lg">
+        <p>Aquí puedes registrar un nuevo centro ingresando su nombre y número correspondiente.</p>  
+    </div>
+    <div class="mt-2 border border-gray-300"></div>
+    <section>
+        <h3 class="mt-8 mb-6 text-lg">
+            Asegúrate de que el nombre del centro sea único y que el número esté correctamente asignado.
+        </h3>
+        <form [formGroup]="centerForm" novalidate (ngSubmit)="onSubmit()">
+            <div class="grid grid-cols-6 my-4 py-2">
+                <p class="text-lg col-start-1 col-end-3 flex items-center h-17">
+                    Nombre del centro
+                </p>
+                <div class="col-start-3 col-end-5 flex flex-col justify-center h-17">
+                    <input
+                        class="w-full" placeholder="Nombre centro"
+                        [ngClass]="{'ng-invalid ng-dirty': isValidField('nom_centro')}"
+                        pInputText id="nom_centro-input"  pSize="large"
+                        formControlName="nom_centro" type="text"
+                    />
+                    @if (isValidField('nom_centro')) {
+                        <small class="mt-2 pl-2 text-red-500 text-left" > 
+                            Nombre de centro inválido.
+                        </small>
+                    }
+                </div>
+            </div><!--nombre centro-->
+            <div class="mt-2 border border-gray-300"></div>
+            <div class="grid grid-cols-6 my-4 py-2">
+                <p class="text-lg col-start-1 col-end-3 flex items-center h-17">
+                    Número del centro
+                </p>
+                <div class="col-start-3 col-end-5 flex flex-col justify-center h-17">
+                    <p-inputNumber 
+                        formControlName="num_centro" 
+                        inputId="num_centro-input"
+                        [useGrouping]="false"
+                        placeholder="Ej: 231801"
+                        size="large"
+                        [ngClass]="{'ng-invalid ng-dirty': isValidField('num_centro')}"
+                    />
+                    @if (isValidField('num_centro')) {
+                        <small class="mt-2 pl-2 text-red-500 text-left">
+                            Número de centro inválido.
+                        </small>
+                    }
+                </div>
+            </div><!-- num centro -->
+            <section class="flex gap-6 py-2 mt-16">
+                <p-button 
+                    type="button"
+                    (click)="resetForm()"
+                    label="Cancelar" 
+                    [disabled]="isCreating()"
+                    size="large"
+                    text="true"
+                />
+                <p-button 
+                    type='submit'
+                    label="Registrar"
+                    [loading]="isCreating()"
+                    [disabled]="centerForm.invalid || isCreating()"
+                    [label]="isCreating() ? 'Registrando...' : 'Registrar'" 
+                    styleClass="btn-rvia"
+                    size="large"
+                />
+            </section>
+        </form>
+    </section>
+</main>

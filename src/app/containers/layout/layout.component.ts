@@ -2,7 +2,7 @@ import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { PrimeIcons } from 'primeng/api';
 import { DividerModule } from 'primeng/divider';
@@ -35,6 +35,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   menuTools = [
     { path: '/tools/recoveryPDF', name: 'Convertir a .csv', icon: PrimeIcons.FILE_EXCEL },
     { path: '/tools/execute-ia', name: 'Ejecutar IA', icon: PrimeIcons.MICROCHIP_AI },
+    { path: '/tools/create-center', name: 'Centros', icon: PrimeIcons.BUILDING },
   ];
   menuSettings = [
     { path: '/users/settings/my-account', name: 'Ajustes', icon: PrimeIcons.COG },
