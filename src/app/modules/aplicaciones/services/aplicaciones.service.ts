@@ -197,7 +197,7 @@ export class AplicacionesService {
     if(main){
       url = `${this.baseUrl}/applications/zip/${id}`;
     }else {
-      if(archi === ArquitecturaOpciones.DOC_CMPLT){
+      if(archi === ArquitecturaOpciones.DOC_CMPLT || archi === ArquitecturaOpciones.DOC_CODE){
         url = `${this.baseUrl}/applications/download-doc/${id}`;
       }
     }
