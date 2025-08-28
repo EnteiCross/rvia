@@ -122,7 +122,14 @@
                                         [status]="app.opc_estatus_caso"
                                         [numProcess]="3"
                                         [opcArquitectura]="app.opc_arquitectura[3]"
+                                         (click)="onDownloadFile(app,false,ArquitecturaOpciones.TEST_CASES)"
                                     /> <!-- Acción casos de prueba -->
+                                    <rvia-icon
+                                        [status]="app.opc_estatus_dim"
+                                        [numProcess]="5"
+                                        [opcArquitectura]="app.opc_arquitectura[5]"
+                                         (click)="onDownloadFile(app,false,ArquitecturaOpciones.SIZING)"
+                                    /> <!-- Acción calificacion -->
                                     <!-- <rvia-icon
                                         [status]="app.opc_estatus_calificar"
                                         [numProcess]="4"

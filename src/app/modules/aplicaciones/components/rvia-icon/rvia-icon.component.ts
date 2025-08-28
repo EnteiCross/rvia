@@ -31,7 +31,8 @@ export class RviaIconComponent implements OnInit{
     1: 'Documentación completa',
     2: 'Documentación por código',
     3: 'Casos de pruebas',
-    4: 'Calificación de código'
+    4: 'Calificación de código',
+    5: 'Dimensionamiento de código'
   }
 
   nameStatus: {[key: number]: string} = {
@@ -60,6 +61,7 @@ export class RviaIconComponent implements OnInit{
     2: 'pi-file',
     3: 'pi-clipboard',
     4: 'pi-check-square',
+    5: 'pi-check-square',
   }
 
   ngOnInit(): void {
