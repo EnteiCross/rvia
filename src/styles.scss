@@ -1,7 +1,7 @@
 @use './app/scss/tailwind.css';
 @use "primeicons/primeicons.css";
 
-:root{
+:root {
     --rvia-primary-color: #006fb9;
     --hover-rvia-primary-color: #006eb833;
     --hover-rvia-btn-color: #013457;
@@ -21,11 +21,11 @@ body {
     line-height: normal !important;
 }
 
-.flex-basis-0{
+.flex-basis-0 {
     flex-basis: 0;
 }
 
-.border-title{
+.border-title {
     border-bottom: 2px solid #ccc;
 }
 
@@ -33,27 +33,29 @@ body {
     color: var(--rvia-primary-color) !important;
 }
 
-.btn-rvia{
+.btn-rvia {
     background-color:  var(--rvia-primary-color) !important;
     border-color: var(--rvia-primary-color) !important;
     transition: left 0.3s ease, background-color 0.3s ease;
 
-    &:not(:disabled):hover {
+    &:not(:disabled):hover,
+    &:not([disabled]):hover {
         background-color: var(--hover-rvia-btn-color) !important;
         border-color: var(--hover-rvia-btn-color) !important;
     }
 }
 
-.btn-rvia-outlined{
+.btn-rvia-outlined {
     border-color: var(--rvia-primary-color) !important;
     color: var(--rvia-primary-color) !important;
+    transition: left 0.3s ease, background-color 0.3s ease;
 
     &:hover{
         background-color: #ffffff !important;
     }
 }
 
-p > b{
+p > b {
     color: var(--acent-color);
 }
 

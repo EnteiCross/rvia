@@ -1,0 +1,103 @@
+<main class="m-2">
+    <section class="flex flex-col md:flex-row md:items-center">
+        <div class="flex items-center justify-center">
+          <h1 class="txt-title-color text-5xl my-0">Registrar nuevo encargado</h1>
+        </div>
+    </section>
+    <div class="mt-4 text-gray-400 text-lg">
+        <p>Completa los siguientes campos para agregar un nuevo integrante al sistema.</p>  
+    </div>
+    <div class="mt-2 border border-gray-300"></div>
+    <section>
+        <h3 class="mt-8 mb-6 text-lg">
+            Verifica que el número de empleado no esté repetido y que el puesto esté correctamente asignado.  
+        </h3>
+        <form [formGroup]="leaderForm" novalidate (ngSubmit)="onSubmit()">
+            <div class="grid grid-cols-6 my-4 py-2">
+                <p class="text-lg col-start-1 col-end-3 flex items-center h-17">
+                    Número de empleado
+                </p>
+                <div class="col-start-3 col-end-5 flex flex-col justify-center h-17">
+                   <p-inputNumber 
+                        formControlName="num_empleado" 
+                        inputId="num_empleado-leader"
+                        [useGrouping]="false"
+                        [style]="{ width : '100%' }"
+                        placeholder="Ej: 90000000"
+                        min="90000000"
+                        max="99999999"
+                        size="large"
+                        [ngClass]="{'ng-invalid ng-dirty': isValidField('num_empleado')}"
+                    />
+                    @if (isValidField('num_empleado')) {
+                    <small class="mt-2 pl-2 text-red-500">
+                        Número de empleado inválido.
+                    </small>
+                    }
+                </div>
+            </div><!--num encargado -->            
+            <div class="mt-2 border border-gray-300"></div>
+            <div class="grid grid-cols-6 my-4 py-2">
+                <p class="text-lg col-start-1 col-end-3 flex items-center h-17">
+                    Nombre del encargado
+                </p>
+                <div class="col-start-3 col-end-5 flex flex-col justify-center h-17">
+                    <input
+                        class="w-full" placeholder="Nombre del encargado"
+                        [ngClass]="{'ng-invalid ng-dirty': isValidField('nom_empleado')}"
+                        pInputText id="nom_empleado-input"  pSize="large"
+                        formControlName="nom_empleado" type="text"
+                    />
+                    @if (isValidField('nom_empleado')) {
+                        <small class="mt-2 pl-2 text-red-500 text-left" > 
+                            Nombre de encargado inválido.
+                        </small>
+                    }
+                </div>
+            </div><!-- nom encargado -->
+            <div class="mt-2 border border-gray-300"></div>
+            <div class="grid grid-cols-6 my-4 py-2">
+                <p class="text-lg col-start-1 col-end-3 flex items-center h-17">
+                    Puesto
+                </p>
+                <div class="col-start-3 col-end-5 flex flex-col justify-center h-17">
+                    <p-select
+                        formControlName="num_puesto" id="position-reg"
+                        [options]="positionsOpcs"  
+                        optionLabel="nom_puesto" 
+                        optionValue="idu_puesto"
+                        placeholder="Selecciona tu puesto"
+                        [showClear]="true"
+                        [style]="{ width : '100%' }" 
+                        size="large"
+                        [ngClass]="{'ng-invalid ng-dirty': isValidField('num_puesto')}"
+                    />
+                @if (isValidField('num_puesto')) {
+                  <small class="mt-2 pl-2 text-red-500"> 
+                    Debes seleccionar un puesto.
+                  </small>
+                }
+                </div>
+            </div><!-- puesto encargado -->                
+            <section class="flex gap-6 py-2 mt-16">
+                <p-button 
+                    type="button"
+                    (click)="resetForm()"
+                    label="Cancelar" 
+                    [disabled]="isCreating()"
+                    size="large"
+                    text="true"
+                />
+                <p-button 
+                    type='submit'
+                    label="Registrar"
+                    [loading]="isCreating()"
+                    [disabled]="leaderForm.invalid || isCreating()"
+                    [label]="isCreating() ? 'Registrando...' : 'Registrar'" 
+                    styleClass="btn-rvia"
+                    size="large"
+                />
+            </section>
+        </form>
+    </section>
+</main>
