@@ -52,7 +52,7 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
     { txt: 'Generar documentación completa', form: 'archiDocOverOpt' },
     { txt: 'Generar documentación por código', form: 'archiDocCodeOpt' },
     { txt: 'Generar casos de pruebas', form: 'archiCasesOpt' },
-    { txt: 'Generar dimensionamiento', form: 'archiDimOpt' },
+    { txt: 'Generar dimensionamiento de código', form: 'archiDimOpt' },
     // { txt: 'Generar calificación de proyecto', form: 'archiRateOpt' },
   ];
   
@@ -350,18 +350,16 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
       opt_archi
     }
 
-    console.log(info);
-
-    // this.aplicacionesService.saveProjectWitPDF(info)
-    //   .pipe(takeUntil(this.destroy$))  
-    //   .subscribe({
-    //     next: () => {
-    //       this.back();
-    //     },
-    //     error: () => {      
-    //       this.isUploadProject = false
-    //     }
-    //   });
+    this.aplicacionesService.saveProjectWitPDF(info)
+      .pipe(takeUntil(this.destroy$))  
+      .subscribe({
+        next: () => {
+          this.back();
+        },
+        error: () => {      
+          this.isUploadProject = false
+        }
+      });
   }
 
   back(): void {

@@ -61,7 +61,7 @@ export class RviaIconComponent implements OnInit{
     2: 'pi-file',
     3: 'pi-clipboard',
     4: 'pi-check-square',
-    5: 'pi-check-square',
+    5: 'pi-expand',
   }
 
   ngOnInit(): void {
