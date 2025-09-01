@@ -108,21 +108,28 @@
                                     /> <!-- Proceso principal No aplica, Act, San, Mig  -->
                                     <rvia-icon
                                         [status]="app.opc_estatus_doc"
-                                        [numProcess]="1"
-                                        [opcArquitectura]="app.opc_arquitectura[1]"
+                                        [numProcess]="ArquitecturaOpciones.DOC_CMPLT"
+                                        [opcArquitectura]="true"
                                         (click)="onDownloadFile(app,false,ArquitecturaOpciones.DOC_CMPLT)"
                                     /> <!-- Acción documentación completa -->
                                     <rvia-icon
                                         [status]="app.opc_estatus_doc_code"
-                                        [numProcess]="2"
-                                        [opcArquitectura]="app.opc_arquitectura[ArquitecturaOpciones.DOC_CODE]"
+                                        [numProcess]="ArquitecturaOpciones.DOC_CODE"
+                                        [opcArquitectura]="true"
                                         (click)="onDownloadFile(app,false,ArquitecturaOpciones.DOC_CODE)"
                                     /> <!-- Acción documentación por código -->
                                     <rvia-icon
                                         [status]="app.opc_estatus_caso"
-                                        [numProcess]="3"
-                                        [opcArquitectura]="app.opc_arquitectura[3]"
+                                        [numProcess]="ArquitecturaOpciones.TEST_CASES"
+                                        [opcArquitectura]="true"
+                                         (click)="onDownloadFile(app,false,ArquitecturaOpciones.TEST_CASES)"
                                     /> <!-- Acción casos de prueba -->
+                                    <rvia-icon
+                                        [status]="app.opc_estatus_dim"
+                                        [numProcess]="ArquitecturaOpciones.SIZING"
+                                        [opcArquitectura]="true"
+                                         (click)="onDownloadFile(app,false,ArquitecturaOpciones.SIZING)"
+                                    /> <!-- Acción calificacion -->
                                     <!-- <rvia-icon
                                         [status]="app.opc_estatus_calificar"
                                         [numProcess]="4"

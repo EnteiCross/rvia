@@ -106,6 +106,7 @@ export class ListAppsComponent implements OnInit, OnDestroy {
         [ArquitecturaOpciones.DOC_CODE]: app.opc_estatus_doc_code,
         [ArquitecturaOpciones.TEST_CASES]: app.opc_estatus_caso,
         [ArquitecturaOpciones.EVALUATION]: app.opc_estatus_calificar,
+        [ArquitecturaOpciones.SIZING]: app.opc_estatus_dim,
       };
 
       if (statusMap[archi] !== StatusApp.DONE) return;
