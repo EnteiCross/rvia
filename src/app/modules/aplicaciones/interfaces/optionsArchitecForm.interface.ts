@@ -4,5 +4,4 @@ export interface Opt_architec {
     2: boolean,
     3: boolean,
     4: boolean,
-    5: boolean
 }

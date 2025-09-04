@@ -28,8 +28,9 @@ export class LayoutComponent implements OnInit, OnDestroy {
     { path: '/users/list-users', name: 'Usuarios', icon: PrimeIcons.USERS },
   ];
   menuRvia = [
-    { path: '/tools/execute-documentacion', name: 'Documentar proyecto', icon: PrimeIcons.FILE },
     { path: '/tools/test-case', name: 'Casos de prueba', icon: PrimeIcons.CLIPBOARD },
+    { path: '/tools/project-sizing', name: 'Dimensionar proyecto', icon: PrimeIcons.MONEY_BILL },
+    { path: '/tools/execute-documentacion', name: 'Documentar proyecto', icon: PrimeIcons.FILE },
     // { path: '/tools/rate-code', name: 'Calificar código', icon: PrimeIcons.CHECK_SQUARE },
   ];
   menuTools = [

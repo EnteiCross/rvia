@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { catchError, delay, map, Observable, tap, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from '../../../../environments/environment';
 import { NotificationsService } from '@modules/shared/services/notifications.service';
 import { CheckmarxPDFCSV } from '@modules/shared/interfaces/checkmarx.interface';
 import { AplicacionesService } from '@modules/aplicaciones/services/aplicaciones.service';
-import { Aplication, ArquitecturaOpciones } from '@modules/aplicaciones/interfaces';
+import { Aplication, AplicationsData, ArquitecturaOpciones } from '@modules/aplicaciones/interfaces';
 import { AppAddonsCall, FormAddonCall, FormPDFtoCSV, OriginMethod, StartProcess } from '../interfaces';
 
 @Injectable({
@@ -110,6 +110,28 @@ export class HerramientasService {
       );
   }
 
+  getSizingApps(): Observable<AplicationsData>{
+    return this.http.get<Aplication[]>(`${this.baseUrl}/applications/dim`)
+      .pipe(
+        map((apps) => {
+          return { 
+            data: apps,
+            total: apps.length
+          }
+        }),
+        delay(1000),
+        catchError(error => this.handleError(error, OriginMethod.GETAPPS))
+      )
+  }
+
+  getAppDetail(idu_proyecto: string) {
+    return this.http.get(`${this.baseUrl}/applications/report-dim/${idu_proyecto}`)
+      .pipe(
+        tap(r => console.log(r)),
+        catchError(error => this.handleError(error, OriginMethod.GETAPPDETAIL,idu_proyecto))
+      );
+  }
+
   private messageStartRVIAProcess(isStart: boolean, message: string): void {
     const content = `${message}`
     if(isStart){
@@ -129,6 +151,8 @@ export class HerramientasService {
     const title = 'Error';
 
     const errorsMessages = {
+      GETAPPS: 'Error al obtener las aplicaciones.',
+      GETAPPDETAIL: `Error al obtener el detalle de la aplicación. ${extra ?? ''}`,
       GETDOWNLOADCSV: 'Error al descargar el CSV.',
       PATCHRDOCCODE: 'Ha ocurrido un error al iniciar el proceso de documentar aplicación. Inténtalo más tarde.',
       PATCHRTESTCASE: 'Ha ocurrido un error al iniciar el proceso de casos de prueba. Inténtalo más tarde.',

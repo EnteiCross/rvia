@@ -1,0 +1,102 @@
+<main class="m-2">
+    <section class="flex flex-col md:flex-row mb-4 pb-2 border-title" >
+        <h1 class="txt-title-color text-5xl font-bold my-0">
+            Dimensionar proyecto
+        </h1> 
+        <a
+            (click)="visible = true"
+            pTooltip="Crear dimensionamiento"
+            tooltipPosition="left"
+            tooltipStyleClass="text-sm"
+            class="rounded-lg btn-rvia text-white flex items-center font-bold p-2 mx-auto mt-4 md:mt-0 md:ml-auto md:mr-0">
+            <span class="pi pi-plus-circle mr-2 text-center" style="font-size: 1.4rem"></span>
+            Subir proyecto
+        </a>
+    </section>
+    <section class="text-justify vertical-align-middle mb-8">
+        <p class="m-0">
+           Obtenga un presupuesto confiable mediante la evaluación integral de su proyecto.
+        </p>
+    </section>
+
+    @if (isLoading()) {
+        <rvia-loader />
+    }
+
+    @if(!isLoading() && aplications.length === 0){
+        <div class="my-8">
+            <h2 class="text-2xl font-bold text-center">
+                ¡No hay aplicaciones para listar!
+            </h2>
+        </div>
+    }
+
+    @if(!isLoading() && aplications.length > 0){
+        <section class="my-4">
+            <div class="card">
+                <p-table 
+                    #dt2
+                    dataKey="id"
+                    [value]="aplications"
+                    [paginator]="true"
+                    [rows]="10"
+                    [rowsPerPageOptions]="rowsPerPageOpts"
+                    [totalRecords]="totalItems"
+                    [loading]="loadingDataPage"
+                    [globalFilterFields]="['idu_proyecto']"
+                    [tableStyle]="{ 'min-width': '100%', 'width': 'auto' }"
+                >
+                    <ng-template pTemplate="caption">
+                        <div class="flex items-center">
+                            <p-iconField iconPosition="left" class="ml-auto">
+                                <p-inputIcon>
+                                    <i class="pi pi-search"></i>
+                                </p-inputIcon>
+                                <input 
+                                    pInputText
+                                    id="search-app-input" 
+                                    type="text" 
+                                    (input)="filtercustom($event)" 
+                                    placeholder="Búsqueda por ID proyecto"
+                                    class="w-64"
+                                />
+                            </p-iconField>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header">
+                        <tr class="rvia-table-header">
+                            @for (col of colums(); track $index) {
+                                <th>{{ col }}</th>
+                            }
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-app let-index="rowIndex">
+                        <tr>
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ app.idu_proyecto }}</td>
+                            <td>{{ app.fec_creacion }} </td>
+                            @if (user()!.position.nom_rol !== Nom_Rols.INVITADO && user()!.position.nom_rol !== Nom_Rols.USUARIO) {
+                                <td>
+                                    {{ app.user.nom_usuario }}
+                                </td>
+                            }
+                            <td>{{ app.nom_aplicacion }}</td>
+                            <td>
+                                <button class="btn-rvia-outlined">
+                                    Ver detalle
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </section>
+    }
+</main>
+
+@if( visible ){
+    <dialog-file-upload 
+        [(visible)]="visible"
+        (fileUploaded)="onGetAplicaciones()"
+    />
+}
