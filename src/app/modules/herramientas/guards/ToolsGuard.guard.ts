@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { AuthService } from "@modules/auth/services/auth.service";
 import { Nom_Rol } from "@modules/usuarios/interfaces";
 
-const forbiddenRoles = [Nom_Rol.INVITADO, Nom_Rol.USUARIO, Nom_Rol.AUTORIZADOR]; 
+const forbiddenRoles = [Nom_Rol.INVITADO]; 
 
 export const ToolsGuard = (): boolean => {
     const router = inject(Router);
