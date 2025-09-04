@@ -10,10 +10,11 @@ import { Nom_Rol, Usuario } from '@modules/usuarios/interfaces';
 import { RviaLoaderComponent } from "@modules/shared/components/loader/loader.component";
 import { DialogFileUploadComponent } from '@modules/shared/components/dialog-file-upload/dialog-file-upload.component';
 import { HerramientasService } from '@modules/herramientas/services/herramientas.service';
+import { ReportDetailComponent } from "./report-detail/report-detail.component";
 
 @Component({
   selector: 'project-sizing',
-  imports: [RviaLoaderComponent, PrimeNGModule, DialogFileUploadComponent],
+  imports: [RviaLoaderComponent, PrimeNGModule, DialogFileUploadComponent, ReportDetailComponent],
   templateUrl: './project-sizing.component.html',
 })
 export class ProjectSizingComponent implements OnInit, OnDestroy{
@@ -27,6 +28,8 @@ export class ProjectSizingComponent implements OnInit, OnDestroy{
   colums = signal<string[]>(['#', 'ID proyecto', 'Subido el','Nombre', 'Detalles']);
   
   visible: boolean = false;
+  showDetail: boolean = false;
+  appToDetail: string = '';
   aplications: Aplication[] = [];
   
   Nom_Rols = Nom_Rol;
@@ -81,10 +84,17 @@ export class ProjectSizingComponent implements OnInit, OnDestroy{
       });  
   }
 
+  showDetailDialog(app: Aplication): void {
+    console.log(app.idu_aplicacion);
+    console.log(app.idu_proyecto);  
+    this.appToDetail = app.idu_proyecto;
+    this.showDetail = true;
+    
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }
 

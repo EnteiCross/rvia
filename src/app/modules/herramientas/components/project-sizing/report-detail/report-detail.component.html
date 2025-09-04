@@ -1,0 +1,14 @@
+<p-dialog header="Detalles" [modal]="true" [(visible)]="showDetail" [style]="{ width: '30rem' }">
+    
+    @if (isLoading()) {
+        <rvia-loader />
+    }
+
+    @if (!isLoading() && data()){
+        <p>Aqui mostraremos la informacion del detalle de la app: </p>
+        <p>{{ idu() }}</p>
+    }@else {
+        <p>Hubo problemas al cargar la información intentalo más tarde.</p>
+    }
+
+</p-dialog>

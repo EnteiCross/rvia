@@ -82,7 +82,7 @@
                             }
                             <td>{{ app.nom_aplicacion }}</td>
                             <td>
-                                <button class="btn-rvia-outlined">
+                                <button class="btn-rvia-outlined" (click)="showDetailDialog(app)">
                                     Ver detalle
                                 </button>
                             </td>
@@ -98,5 +98,12 @@
     <dialog-file-upload 
         [(visible)]="visible"
         (fileUploaded)="onGetAplicaciones()"
+    />
+}
+
+@if ( showDetail ) {
+    <report-detail
+        [idu]="appToDetail"
+        [(showDetail)]="showDetail"
     />
 }
