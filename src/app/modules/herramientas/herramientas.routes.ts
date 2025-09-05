@@ -7,18 +7,22 @@ import { TestCaseComponent } from "./components/test-case/test-case.component";
 import { RateCodeComponent } from "./components/rate-code/rate-code.component";
 import { CreateCenterComponent } from "./components/create-center/create-center.component";
 import { CreateLeaderComponent } from "./components/create-leader/create-leader.component";
+import { ProjectSizingComponent } from "./components/project-sizing/project-sizing.component";
+import { AdminGuard } from "@modules/usuarios/guards/adminGuard.guard";
 
 export const herramientasRoutes: Routes = [
     {
         path: '',
         children: [
             { 
-                path: 'recoveryPDF',  
+                path: 'recoveryPDF',
+                canActivate: [AdminGuard],
                 component: PdfToCsvFormComponent,
                 title: 'RVIA - RecoveryPDF' 
             },
             { 
                 path: 'execute-ia',
+                canActivate: [AdminGuard],  
                 component: ExecuteIaComponent,
                 title: 'RVIA - Ejecutar IA' 
             },
@@ -34,13 +38,20 @@ export const herramientasRoutes: Routes = [
             }, 
             {
                 path: 'create-center',
+                canActivate: [AdminGuard],  
                 component: CreateCenterComponent,
                 title: 'RVIA - Crear centro'
             },
             {
                 path: 'create-leader',
+                canActivate: [AdminGuard],  
                 component: CreateLeaderComponent,
                 title: 'RVIA - Registrar encargado'
+            },
+            {
+                path: 'project-sizing',
+                component: ProjectSizingComponent,
+                title: 'RVIA - Dimensionar proyecto'
             },
             // { 
             //     path: 'rate-code',
@@ -49,7 +60,7 @@ export const herramientasRoutes: Routes = [
             // }, 
             { 
                 path: '**', 
-                redirectTo: 'execute-documentacion' 
+                redirectTo: '/' 
             },
         ]
     }

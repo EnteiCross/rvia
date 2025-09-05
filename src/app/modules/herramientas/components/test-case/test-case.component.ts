@@ -1,6 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy, signal, computed, inject } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 
 import { ConfirmationService } from 'primeng/api';
@@ -8,54 +7,55 @@ import { ConfirmationService } from 'primeng/api';
 import { PrimeNGModule } from '@modules/shared/prime/prime.module';
 import { AplicacionesService } from '@modules/aplicaciones/services/aplicaciones.service';
 import { HerramientasService } from '@modules/herramientas/services/herramientas.service';
-import { AppsToUseSelect } from '@modules/aplicaciones/interfaces';
+import { AppsToUseSelect, ArquitecturaOpciones } from '@modules/aplicaciones/interfaces';
+import { RviaLoaderComponent } from '@modules/shared/components/loader/loader.component';
 
 @Component({
     selector: 'test-case',
-    imports: [CommonModule, ReactiveFormsModule, PrimeNGModule],
+    imports: [ReactiveFormsModule, PrimeNGModule, RviaLoaderComponent],
     providers: [ConfirmationService],
     templateUrl: './test-case.component.html',
-    styleUrls: ['./test-case.component.scss']
 })
 export class TestCaseComponent implements OnInit, OnDestroy { 
   private destroy$ = new Subject<void>();
-  isLoadingData: boolean = true;
-  isRequest: boolean = false;
-  label: string = 'Iniciar';
+  isLoadingData = signal<boolean>(true);
+  isRequest = signal<boolean>(false);
+  label = computed<string>(() => {
+    return this.isRequest() ? 'Iniciando' : 'Iniciar';
+  });
 
   form!: FormGroup; 
   appsOpcs: AppsToUseSelect[] = [];
 
-  constructor(
-    private aplicacionesService: AplicacionesService,
-    private herramientasService: HerramientasService,
-    private confirmationService: ConfirmationService 
-  ){}
+  private fb = inject(FormBuilder);
+  private aplicacionesService = inject(AplicacionesService);
+  private herramientasService = inject(HerramientasService);
+  private confirmationService = inject(ConfirmationService);
 
   ngOnInit(): void {
     this.getApps();
   }
 
   private getApps(): void {
-    this.aplicacionesService.getSomeArchitecApps(3)
+    this.aplicacionesService.getSomeArchitecApps(ArquitecturaOpciones.TEST_CASES)
       .pipe(takeUntil(this.destroy$))  
       .subscribe((resp) => {        
         if(resp){
-          this.appsOpcs = resp;
           this.initForm();
-          this.isLoadingData = false;          
+          this.appsOpcs = resp;
+          this.isLoadingData.set(false);          
         }
       });
   }
 
   private initForm(): void {
-    this.form = new FormGroup({  
-      idu_aplicacion: new FormControl(null, [Validators.required]),
+    this.form = this.fb.group({  
+      idu_aplicacion: [null, [Validators.required]],
     });
   }
 
   onSubmit(): void { 
-    if(this.form.invalid || this.isRequest){  
+    if(this.form.invalid || this.isRequest()){  
       this.form.markAllAsTouched();  
       return;
     }
@@ -64,7 +64,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
     this.confirmationService.confirm({
       message,
       header: 'Casos de Prueba',  
-      icon: 'pi pi-clipboard', 
+      icon: 'pi pi-exclamation-triangle text-3xl!',
       acceptButtonStyleClass: 'p-button-success my-2',
       acceptLabel: 'Sí, continuar',
       rejectButtonStyleClass: 'p-button-outlined my-2',
@@ -78,16 +78,16 @@ export class TestCaseComponent implements OnInit, OnDestroy {
     });
   }
 
-  executeTestCase(): void {  
-    this.isRequest = true;
-    this.label = 'Iniciando'; 
-
+  executeTestCase(): void {
+    if(this.isRequest()) return;
+    this.isRequest.set(true);
+    
     const idu_aplicacion = this.form.controls['idu_aplicacion'].value;
+    
     this.herramientasService.startProcessTestCasesRVIA(idu_aplicacion)  
       .pipe(takeUntil(this.destroy$))    
       .subscribe({
         next: () => {
-          this.label = 'Iniciado'; 
           setTimeout(() => {
             this.reset();
           }, 1000);
@@ -105,8 +105,7 @@ export class TestCaseComponent implements OnInit, OnDestroy {
   }
 
   resetValues(): void {
-    this.isRequest = false;
-    this.label = 'Iniciar';
+    this.isRequest.set(false);
   }
 
   ngOnDestroy(): void {

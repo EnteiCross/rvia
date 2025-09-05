@@ -13,9 +13,9 @@
       <menu-list menuName="Menú" [menuItems]="menuSidebar" />
       <div 
         class="divider-rvia" 
-        [ngClass]="userLogged()?.position?.nom_rol !== Nom_rol.ADMINISTRADOR ? 'mb-auto' : ''">
+        [ngClass]="userLogged()?.position?.nom_rol === Nom_rol.INVITADO ? 'mb-auto' : ''">
       </div>
-      @if (userLogged()?.position?.nom_rol === Nom_rol.ADMINISTRADOR) {
+      @if (userLogged()?.position?.nom_rol !== Nom_rol.INVITADO) {
         <menu-list [menuItems]="menuRvia"/>
         <div 
           class="divider-rvia mb-auto" 

@@ -18,7 +18,6 @@ export interface Aplication {
     opc_estatus_caso:      StatusApp | 0;
     opc_estatus_doc_code:  StatusApp | 0;
     opc_estatus_doc:       StatusApp | 0;
-    opc_estatus_dim:       StatusApp | 0;
     opc_lenguaje:      number;
     sequentialId:      number;
     sourcecode:        Sourcecode;

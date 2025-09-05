@@ -4,6 +4,8 @@ export interface FormPDFtoCSV {
 }
 
 export enum OriginMethod { 
+    GETAPPS        = 'GETAPPS',
+    GETAPPDETAIL   = 'GETAPPDETAIL',
     GETDOWNLOADCSV = 'GETDOWNLOADCSV',
     PATCHRDOCCODE  = 'PATCHRDOCCODE',
     PATCHRTESTCASE = 'PATCHRTESTCASE',

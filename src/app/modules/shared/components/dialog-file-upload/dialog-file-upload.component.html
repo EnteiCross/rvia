@@ -1,0 +1,64 @@
+<p-dialog header="Subir proyecto" [modal]="true" [(visible)]="visible" [style]="{ width: '30rem' }">
+    <form [formGroup]="fileForm">
+        <div class="flex flex-col justify-center items-center gap-6 my-8">
+            <input type="file" #fileInput
+                class="hidden"
+                accept=".zip, .7z"
+                (change)="onFileSelected($event)"
+                [disabled]="isLoading() || isUploading()"
+            />
+            <button
+                [disabled]="isLoading() || isUploading()"
+                (click)="fileInput.click()"
+                class="p-button btn-rvia font-bold"
+            >
+                <span class="pi pi-upload mr-2 text-center" style="font-size: 1.4rem"></span>
+                Seleccionar
+            </button>
+
+            <div class="text-gray-500">
+                <p>
+                    {{ fileName() ? fileName() : 'Selecciona tu proyecto .zip ó .7z' }}
+                </p>
+            </div>
+
+             @if (fileForm.get('file')?.invalid && fileForm.get('file')?.touched) {
+                <div class="text-center">
+                    @if (fileForm.get('file')?.hasError('invalidType')) {
+                        <p class="text-red-500">Solo se permiten archivos .zip o .7z.</p>
+                    }
+                    @if (fileForm.get('file')?.hasError('invalidName')) {
+                        <p class="text-red-500">El nombre del archivo no puede contener espacios en blanco.</p>
+                    }
+                </div>
+            }
+
+            @if(isLoading()){
+                <div class="loading-state">
+                    <p>Cargando...</p>
+                </div>
+            }
+        </div>
+        @if( fileForm.valid && !isLoading() ){
+            <div class="flex justify-end gap-6">
+                <button 
+                    class="btn-rvia-outlined"
+                    [disabled]="isUploading()"
+                    (click)="reset()">
+                    Cancelar
+                </button>
+                <button 
+                    pButton 
+                    [disabled]="isUploading() || fileForm.invalid" 
+                    icon="pi pi-arrow-right"
+                    class="btn-rvia flex items-center font-bold p-3"
+                    (click)="uploadFile()"
+                    [loading]="isUploading()"
+                    [label]="isUploading() ? 'Subiendo' : 'Subir proyecto'"
+                    iconPos="right" 
+                >
+                </button>
+            </div>
+        }
+    </form>
+</p-dialog>

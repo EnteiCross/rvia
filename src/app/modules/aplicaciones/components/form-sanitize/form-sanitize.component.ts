@@ -52,7 +52,6 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
     { txt: 'Generar documentación completa', form: 'archiDocOverOpt' },
     { txt: 'Generar documentación por código', form: 'archiDocCodeOpt' },
     { txt: 'Generar casos de pruebas', form: 'archiCasesOpt' },
-    { txt: 'Generar dimensionamiento de código', form: 'archiDimOpt' },
     // { txt: 'Generar calificación de proyecto', form: 'archiRateOpt' },
   ];
   
@@ -91,7 +90,6 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
       archiDocOverOpt: new FormControl([]),
       archiDocCodeOpt: new FormControl([]),
       archiCasesOpt: new FormControl([]),
-      archiDimOpt: new FormControl([]),
       archiRateOpt: new FormControl({ value: [], disabled: true }),
       
       architecSelected: new FormControl(null, Validators.required),
@@ -163,7 +161,6 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
       archiDocCodeOpt: [],
       archiCasesOpt: [],
       archiRateOpt: [],
-      archiDimOpt:  [],
       [selectedForm]: [true]
     });
   }
@@ -197,7 +194,6 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
         archiDocCodeOpt: null,
         archiCasesOpt:   null,
         archiRateOpt:    null,
-        archiDimOpt: null,
       });
       this.formFiles.patchValue({ architecSelected: null });
     }
@@ -249,10 +245,10 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
     if(this.activeIndex === 3 && this.selectedValue === NumberAction.NONE){
       const { 
        archiDocOverOpt, archiDocCodeOpt,
-       archiCasesOpt,archiRateOpt, archiDimOpt } = this.formFiles.getRawValue();
+       archiCasesOpt,archiRateOpt } = this.formFiles.getRawValue();
 
         return !archiCasesOpt?.[0] && !archiDocOverOpt?.[0] &&
-              !archiDocCodeOpt?.[0] && !archiRateOpt?.[0] && !archiDimOpt?.[0];
+              !archiDocCodeOpt?.[0] && !archiRateOpt?.[0];
       }
 
     return false;
@@ -296,7 +292,6 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
       archiDocCodeOpt = [],
       archiCasesOpt = [],
       archiRateOpt = [],
-      archiDimOpt = [],
     } = this.formFiles.value;
   
     const txtOpc: string[] = [];
@@ -305,7 +300,6 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
     if (Array.isArray(archiDocCodeOpt) && archiDocCodeOpt[0]) txtOpc.push('Documentación por código');
     if (Array.isArray(archiCasesOpt) && archiCasesOpt[0]) txtOpc.push('Casos de pruebas');
     if (Array.isArray(archiRateOpt) && archiRateOpt[0]) txtOpc.push('Calificación de proyecto');
-    if (Array.isArray(archiDimOpt) && archiDimOpt[0]) txtOpc.push('Dimensionamiento de código');
   
     return txtOpc.length > 0 ? txtOpc.join(' - ') : null;
   }
@@ -321,7 +315,6 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
       '2': Array.isArray(values.archiDocCodeOpt) && values.archiDocCodeOpt.length > 0,
       '3': Array.isArray(values.archiCasesOpt) && values.archiCasesOpt.length > 0,
       '4': Array.isArray(values.archiRateOpt) && values.archiRateOpt.length > 0,
-      '5': Array.isArray(values.archiDimOpt) && values.archiDimOpt.length > 0,
     };
 
     if(!this.actionOpsValues.includes(values.action)) return;
@@ -340,7 +333,6 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
       archiDocOverOpt, 
       archiDocCodeOpt,
       archiRateOpt,
-      archiDimOpt,
       architecSelected,
       ...info
     } = this.formFiles.value;
