@@ -7,7 +7,7 @@ import { NotificationsService } from '@modules/shared/services/notifications.ser
 import { CheckmarxPDFCSV } from '@modules/shared/interfaces/checkmarx.interface';
 import { AplicacionesService } from '@modules/aplicaciones/services/aplicaciones.service';
 import { Aplication, AplicationsData, ArquitecturaOpciones } from '@modules/aplicaciones/interfaces';
-import { AppAddonsCall, FormAddonCall, FormPDFtoCSV, OriginMethod, StartProcess } from '../interfaces';
+import { AppAddonsCall, AppDetailDim, FormAddonCall, FormPDFtoCSV, OriginMethod, StartProcess } from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -124,10 +124,10 @@ export class HerramientasService {
       )
   }
 
-  getAppDetail(idu_proyecto: string) {
-    return this.http.get(`${this.baseUrl}/applications/report-dim/${idu_proyecto}`)
+  getAppDetail(idu_proyecto: string): Observable<AppDetailDim> {
+    return this.http.get<AppDetailDim>(`${this.baseUrl}/applications/report-dim/${idu_proyecto}`)
       .pipe(
-        tap(r => console.log(r)),
+        delay(500),
         catchError(error => this.handleError(error, OriginMethod.GETAPPDETAIL,idu_proyecto))
       );
   }

@@ -4,6 +4,7 @@ import { finalize, Subject, takeUntil } from 'rxjs';
 import { HerramientasService } from '@modules/herramientas/services/herramientas.service';
 import { PrimeNGModule } from '@modules/shared/prime/prime.module';
 import { RviaLoaderComponent } from "@modules/shared/components/loader/loader.component";
+import { AppDetailDim } from '@modules/herramientas/interfaces';
 
 @Component({
   selector: 'report-detail',
@@ -16,7 +17,7 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
   private _showDetail: boolean = false;
   private herramientasService = inject(HerramientasService);
   isLoading = signal<boolean>(true);
-  data =  signal<any>(null);
+  data =  signal<AppDetailDim | null>(null);
 
   @Output() showDetailChange = new EventEmitter<boolean>();
   @Input()
@@ -37,8 +38,9 @@ export class ReportDetailComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (data) => {
-          console.log(data);
-          this.data.set(data);
+          if(data && data.archivos.length > 0){
+            this.data.set(data);
+          }
         },
         error: () => {
           

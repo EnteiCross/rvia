@@ -97,3 +97,7 @@ p > b {
     min-height: 100dvh;
     grid-template-rows: 1fr auto;
 }
+
+.divider-rvia{
+  border: 0.5px solid var(--hover-rvia-primary-color);
+}
