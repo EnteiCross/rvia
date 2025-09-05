@@ -84,12 +84,9 @@ export class ProjectSizingComponent implements OnInit, OnDestroy{
       });  
   }
 
-  showDetailDialog(app: Aplication): void {
-    console.log(app.idu_aplicacion);
-    console.log(app.idu_proyecto);  
+  showDetailDialog(app: Aplication): void {  
     this.appToDetail = app.idu_proyecto;
     this.showDetail = true;
-    
   }
 
   ngOnDestroy(): void {
