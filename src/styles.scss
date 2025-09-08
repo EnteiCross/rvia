@@ -1,7 +1,7 @@
 @use './app/scss/tailwind.css';
 @use "primeicons/primeicons.css";
 
-:root{
+:root {
     --rvia-primary-color: #006fb9;
     --hover-rvia-primary-color: #006eb833;
     --hover-rvia-btn-color: #013457;
@@ -21,11 +21,11 @@ body {
     line-height: normal !important;
 }
 
-.flex-basis-0{
+.flex-basis-0 {
     flex-basis: 0;
 }
 
-.border-title{
+.border-title {
     border-bottom: 2px solid #ccc;
 }
 
@@ -33,27 +33,55 @@ body {
     color: var(--rvia-primary-color) !important;
 }
 
-.btn-rvia{
+.btn-rvia {
     background-color:  var(--rvia-primary-color) !important;
     border-color: var(--rvia-primary-color) !important;
     transition: left 0.3s ease, background-color 0.3s ease;
 
-    &:not(:disabled):hover {
+    &:not(:disabled):hover,
+    &:not([disabled]):hover {
         background-color: var(--hover-rvia-btn-color) !important;
         border-color: var(--hover-rvia-btn-color) !important;
+        cursor: pointer;
     }
+
+    &:is(:disabled), &:is([disabled]) {
+        opacity: 0.5 !important;
+    }
+
+    padding: 0.8rem;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
 }
 
-.btn-rvia-outlined{
+.btn-rvia-outlined {
     border-color: var(--rvia-primary-color) !important;
     color: var(--rvia-primary-color) !important;
+    transition: left 0.3s ease, background-color 0.3s ease;
+    padding: 8px;
+    display: flex;   
+    align-items: center;
+    color: #fff;
+    border-radius: 0.5rem;
+    -webkit-border-radius: 0.5rem;
+    -moz-border-radius: 0.5rem;
+    -ms-border-radius: 0.5rem;
+    -o-border-radius: 0.5rem;
 
-    &:hover{
-        background-color: #ffffff !important;
+    &:not(:disabled):hover,
+    &:not([disabled]):hover {
+        cursor: pointer;
+        text-decoration: underline;
     }
 }
 
-p > b{
+p > b {
     color: var(--acent-color);
 }
 
@@ -68,4 +96,8 @@ p > b{
     display: grid;
     min-height: 100dvh;
     grid-template-rows: 1fr auto;
+}
+
+.divider-rvia{
+  border: 0.5px solid var(--hover-rvia-primary-color);
 }

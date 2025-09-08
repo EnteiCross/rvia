@@ -246,7 +246,7 @@
             </div> 
           </section><!-- Panel Resumen--> 
   
-          <section class="flex pt-2">
+          <section class="flex pt-2 p-">
               <p-button label="Regresar" icon="pi pi-arrow-left"
                   [outlined]="true" (onClick)="changeStep(-1)" 
                   [disabled]="activeIndex === 0"
@@ -254,25 +254,28 @@
                   size="large"
                   *ngIf="activeIndex !== 0 && !(activeIndex === headers.length - 1 && isUploadProject)"
               />
-              <button *ngIf="activeIndex !== headers.length - 1; else lastBtn"
-                pButton label="Siguiente" icon="pi pi-arrow-right"
-                iconPos="right" class="p-button ml-auto btn-rvia"
-                size="large"
-                [disabled]="checkDisabled()"
-                (click)="changeStep(+1)"
-              >
-              </button> 
-              <ng-template #lastBtn>
-                  <p-button 
-                    [label]="isUploadProject ? 'Subiendo' : 'Subir proyecto'"
-                    severity="success" icon="pi pi-arrow-right"
-                    iconPos="right" class="ml-auto"
-                    (onClick)="uploadFiles()"
+              @if(activeIndex !== headers.length - 1){
+                <div class="ml-auto p-[8px]">
+                  <button 
+                    pButton label="Siguiente" icon="pi pi-arrow-right"
+                    iconPos="right" class="ml-auto btn-rvia p-button"
                     size="large"
-                    [loading]="isUploadProject"
-                    [disabled]="isUploadProject"
-                  />
-              </ng-template>
+                    [disabled]="checkDisabled()"
+                    (click)="changeStep(+1)"
+                  >
+                  </button> 
+                </div>
+              }@else {
+                <p-button 
+                  [label]="isUploadProject ? 'Subiendo' : 'Subir proyecto'"
+                  severity="success" icon="pi pi-arrow-right"
+                  iconPos="right" class="ml-auto"
+                  (onClick)="uploadFiles()"
+                  size="large"
+                  [loading]="isUploadProject"
+                  [disabled]="isUploadProject"
+                />
+              }
           </section>
         </form>
       </div>

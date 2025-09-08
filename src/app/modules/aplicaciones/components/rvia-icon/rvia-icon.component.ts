@@ -31,7 +31,7 @@ export class RviaIconComponent implements OnInit{
     1: 'Documentación completa',
     2: 'Documentación por código',
     3: 'Casos de pruebas',
-    4: 'Calificación de código'
+    4: 'Calificación de código',
   }
 
   nameStatus: {[key: number]: string} = {

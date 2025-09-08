@@ -51,7 +51,7 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
   actionArchitec = [
     { txt: 'Generar documentación completa', form: 'archiDocOverOpt' },
     { txt: 'Generar documentación por código', form: 'archiDocCodeOpt' },
-    // { txt: 'Generar casos de pruebas', form: 'archiCasesOpt' },
+    { txt: 'Generar casos de pruebas', form: 'archiCasesOpt' },
     // { txt: 'Generar calificación de proyecto', form: 'archiRateOpt' },
   ];
   
@@ -193,7 +193,7 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
         archiDocOverOpt: null,
         archiDocCodeOpt: null,
         archiCasesOpt:   null,
-        archiRateOpt:    null
+        archiRateOpt:    null,
       });
       this.formFiles.patchValue({ architecSelected: null });
     }
@@ -291,7 +291,7 @@ export class FormSanitizeComponent implements OnInit, OnDestroy {
       archiDocOverOpt = [],
       archiDocCodeOpt = [],
       archiCasesOpt = [],
-      archiRateOpt = []
+      archiRateOpt = [],
     } = this.formFiles.value;
   
     const txtOpc: string[] = [];

@@ -9,45 +9,62 @@
         </p>
     </section>
     
-    <!-- <div *ngIf="isLoadingData" class="card flex justify-center my-6">
-        <p-progressSpinner ariaLabel="loading"></p-progressSpinner>
-    </div> -->
+    @if (isLoadingData()) {
+        <rvia-loader />
+    }
 
-    <section *ngIf="!isLoadingData"> 
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <section class="flex flex-col items-center mb-3">
-                <p>Selecciona el aplicativo a trabajar:</p>
-                <p-dropdown
-                    iid="select-apps"
-                    formControlName="idu_aplicacion"
-                    optionLabel="name"
-                    [options]="appsOpcs"
-                    optionValue="value"
-                    placeholder="Selecciona una app"
-                    [filter]="true"
-                    filterPlaceholder="Buscar aplicación..."
-                    [showClear]="true">
-                ></p-dropdown>
-                <span *ngIf="form.controls['idu_aplicacion'].errors && form.controls['idu_aplicacion'].touched"
-                    class="font-italic text-red-500 mt-2">
-                        Debes seleccionar una aplicación.
-                </span>
-            </section>
+    @if (!isLoadingData()) {
+        <section> 
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
 
-            <section *ngIf="form.controls['idu_aplicacion'].value !== null" class="flex flex-col justify-center mb-4">
-                <div class="flex justify-center mt-4">
-                    <p-button 
-                        [label]="label"
-                        [loading]="isRequest && label === 'Iniciando'"
-                        [disabled]="isRequest && label === 'Iniciado'" 
-                        severity="success" 
-                        icon="pi pi-check" 
-                        iconPos="right"
-                        type="submit"
-                    ></p-button>
-                </div>
-            </section>
-        </form>
-    </section>
+                @if(appsOpcs.length > 0){
+                    <section class="flex flex-col items-center mb-6">
+                        <p class="mb-4">Selecciona el aplicativo a trabajar:</p>
+                         <p-select
+                            id="select-apps"
+                            formControlName="idu_aplicacion"
+                            optionLabel="name" 
+                            [options]="appsOpcs"  
+                            optionValue="value"
+                            placeholder="Selecciona una aplicación"
+                            [filter]="true"
+                            filterPlaceholder="Buscar aplicación..."
+                            [showClear]="true"
+                            size="large"
+                        />
+                        @if(form.controls['idu_aplicacion'].errors && form.controls['idu_aplicacion'].touched){
+                            <span class="font-italic text-red-500 mt-2">
+                                Debes seleccionar una aplicación.
+                            </span>
+                        }
+                    </section>
+                }
+
+                @if (appsOpcs.length === 0) {
+                    <div class="my-6">
+                        <h2 class="text-2xl font-bold text-center">
+                            ¡No hay aplicaciones para listar!
+                        </h2>
+                    </div>
+                }
+
+                @if(form.controls['idu_aplicacion'].value !== null){
+                    <section class="flex flex-col justify-center mb-4">
+                        <div class="flex justify-center mt-4">
+                            <p-button 
+                                [label]="label()"
+                                [loading]="isRequest() && label() === 'Iniciando'"
+                                [disabled]="isRequest() && label() === 'Iniciado'" 
+                                severity="success" 
+                                icon="pi pi-check" 
+                                iconPos="right"
+                                type="submit"
+                            ></p-button>
+                        </div>
+                    </section>
+                }
+            </form>
+        </section>
+    }
     <p-confirmDialog/>
 </main>
