@@ -14,9 +14,12 @@ export interface AppDetailDim {
         des_descripcion: string;
       },
     archivos: FileDetail[];
-    total_consultas: number;
     costo_token: {
         costo_token: number;
         costo_token_extra: number;
-    }
+    },
+    total_consultas: number;
+    total_blank: number;
+    total_code: number;
+    total_comment: number;
 }   
